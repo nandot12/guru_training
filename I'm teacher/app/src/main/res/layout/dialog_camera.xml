@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="SELECT YOUR PHOTO ?"
+        android:textColor="@color/colorPrimary"
+        android:textSize="23sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btngallery"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:text="Gallery"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/btnpick"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:text="Pick Camera"
+
+            android:textColor="@android:color/white"
+
+            />
+
+    </LinearLayout>
+
+</LinearLayout>
