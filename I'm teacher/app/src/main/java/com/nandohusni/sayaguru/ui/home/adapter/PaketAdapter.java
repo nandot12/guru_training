@@ -43,9 +43,7 @@ public class PaketAdapter extends RecyclerView.Adapter<PaketAdapter.MyHolder> {
             public void onClick(View v) {
 
                 Intent move = new Intent(c, MapsActivity.class);
-                move.putExtra(Constans.id, data.get(i).getJpId());
-                move.putExtra(Constans.jenjang,data.get(i).getJpJenjang());
-                move.putExtra(Constans.packet,data.get(i).getJpNama());
+                move.putExtra(Constans.id,data.get(i));
                 c.startActivity(move);
 
             }
@@ -60,15 +58,19 @@ public class PaketAdapter extends RecyclerView.Adapter<PaketAdapter.MyHolder> {
 
     class MyHolder extends RecyclerView.ViewHolder {
         TextView textTitle;
+        TextView subTitle ;
 
         MyHolder(@NonNull View itemView) {
             super(itemView);
             textTitle = itemView.findViewById(R.id.itemTitle);
+            subTitle = itemView.findViewById(R.id.itemSubtitle);
         }
 
         @SuppressLint("SetTextI18n")
         void bind(DataItem dataItem) {
-            textTitle.setText(dataItem.getJpJenjang() + " - " + dataItem.getJpNama());
+            textTitle.setText(dataItem.getOrderTanggal());
+            subTitle.setText(dataItem.getOrderAlamat());
+
         }
     }
 

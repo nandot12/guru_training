@@ -3,7 +3,7 @@ package com.nandohusni.sayaguru.ui.home.model;
 import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
-public class ResponsePaket{
+public class ResultRequest{
 
 	@SerializedName("pesan")
 	private String pesan;
@@ -41,7 +41,7 @@ public class ResponsePaket{
 	@Override
  	public String toString(){
 		return 
-			"ResponsePaket{" + 
+			"ResultRequest{" + 
 			"pesan = '" + pesan + '\'' + 
 			",data = '" + data + '\'' + 
 			",status = '" + status + '\'' + 

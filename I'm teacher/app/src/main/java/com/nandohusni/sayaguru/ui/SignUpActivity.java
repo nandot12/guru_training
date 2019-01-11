@@ -8,9 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -21,10 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nandohusni.sayaguru.R;
-import com.nandohusni.sayaguru.network.ApiService;
 import com.nandohusni.sayaguru.network.NetworkClient;
-import com.nandohusni.sayaguru.ui.home.model.DataItem;
-import com.nandohusni.sayaguru.ui.home.model.ResponsePaket;
 import com.nandohusni.sayaguru.ui.signIn.LoginActivity;
 import com.nandohusni.sayaguru.ui.signUp.adapter.PacketAdapter;
 import com.nandohusni.sayaguru.ui.signUp.model.ResponsePacket;
@@ -34,7 +29,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.List;
 
 import butterknife.BindView;
@@ -270,9 +264,13 @@ public class SignUpActivity extends AppCompatActivity {
             cursor.close();
         } else if (requestCode == 2) {
 
+            try {
+                Bitmap datas = (Bitmap) data.getExtras().get("data");
+                persisImage(datas, "camera");
 
-            Bitmap datas = (Bitmap) data.getExtras().get("data");
-            persisImage(datas, "camera");
+            }catch (NullPointerException e){
+
+            }
         } else if (requestCode == 3) {
 
 

@@ -10,13 +10,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.nandohusni.sayaguru.R;
 import com.nandohusni.sayaguru.network.NetworkClient;
 import com.nandohusni.sayaguru.ui.home.adapter.PaketAdapter;
 import com.nandohusni.sayaguru.ui.home.model.DataItem;
-import com.nandohusni.sayaguru.ui.home.model.ResponsePaket;
+import com.nandohusni.sayaguru.ui.home.model.ResultRequest;
+import com.nandohusni.sayaguru.utils.SessionManager;
 
 import java.util.List;
 
@@ -33,9 +33,9 @@ public class HomeFragment extends Fragment {
 
 
     public HomeFragment() {
-        // Required empty public constructor
     }
 
+    SessionManager sesi;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,6 +48,7 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        sesi = new SessionManager(getContext());
         recyclerView = view.findViewById(R.id.paketrecyelrview);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
@@ -56,13 +57,34 @@ public class HomeFragment extends Fragment {
     }
 
 
-
     private void getData() {
 
+        NetworkClient.service.actionRequest(sesi.getIdUser()).enqueue(new Callback<ResultRequest>() {
+            @Override
+            public void onResponse(Call<ResultRequest> call, Response<ResultRequest> response) {
+
+
+                if(response.isSuccessful()){
+                    Boolean status = response.body().isStatus();
+
+                    if(status){
+
+                        List<DataItem> data = response.body().getData();
+
+                        showData(data);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResultRequest> call, Throwable t) {
+
+            }
+        });
 
     }
 
-    private void tampil(List<DataItem> data) {
+    private void showData(List<DataItem> data) {
         recyclerView.setAdapter(new PaketAdapter(data, getContext()));
     }
 }

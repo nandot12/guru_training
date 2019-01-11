@@ -1,6 +1,6 @@
 package com.nandohusni.sayaguru.network;
 
-import com.nandohusni.sayaguru.ui.home.model.ResponsePaket;
+import com.nandohusni.sayaguru.ui.home.model.ResultRequest;
 import com.nandohusni.sayaguru.ui.signIn.model.ResponseLogin;
 import com.nandohusni.sayaguru.ui.signUp.model.ResponsePacket;
 import com.nandohusni.sayaguru.ui.signUp.model.ResponseSignUp;
@@ -18,15 +18,11 @@ import retrofit2.http.Part;
 public interface ApiService {
 
 
-//    @Multipart
-//    @POST("shipmentstatus/update/{id}?key=54b031e20b682fb14ae1e136bd7736c9")
-//    fun uploadFile(@Part foto: MultipartBody.Part,
-//                   @Part("tanggal") tanggal: RequestBody,
-//                   @Part("namaPenerima") nama: RequestBody,
-//                   @Part("status") status: RequestBody,
-//                   @Part("keterangan") keterangan: RequestBody,
-//                   @Path("id") id: String): Observable<ResponseShipment>
-//
+    @FormUrlEncoded
+    @POST("list_request_guru")
+    Call<ResultRequest> actionRequest(@Field("id") String id);
+
+
 
     @Multipart
     @POST("register_guru")

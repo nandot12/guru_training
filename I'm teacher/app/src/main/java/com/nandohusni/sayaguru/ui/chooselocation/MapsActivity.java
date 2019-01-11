@@ -23,6 +23,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.nandohusni.sayaguru.R;
 import com.nandohusni.sayaguru.base.BaseActivity;
+import com.nandohusni.sayaguru.ui.home.model.DataItem;
 import com.nandohusni.sayaguru.ui.search.DetailRequestActivity;
 import com.nandohusni.sayaguru.utils.Constans;
 import com.nandohusni.sayaguru.utils.GPSTracker;
@@ -38,19 +39,12 @@ import butterknife.OnClick;
 public class MapsActivity extends BaseActivity implements OnMapReadyCallback {
 
 
-    private static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 2;
-    @BindView(R.id.searchLocations)
-    TextView searchLocations;
-    @BindView(R.id.mapBtnlanjut)
-    Button mapBtnlanjut;
-    private GoogleMap mMap;
-    private Double lat;
-    private Double lon;
-    private String name;
-    private String id;
 
-    private String packet;
-    private String jenjang;
+    private GoogleMap mMap;
+
+    private DataItem data;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,142 +56,41 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback {
                 .findFragmentById(R.id.map);
         if (mapFragment != null) {
             mapFragment.getMapAsync(this);
+
+
         }
 
-        initIntent();
+
     }
 
     private void initIntent() {
 
-        id = getIntent().getStringExtra(Constans.id);
-        packet = getIntent().getStringExtra(Constans.packet);
-        jenjang = getIntent().getStringExtra(Constans.jenjang);
+        data= (DataItem) getIntent().getSerializableExtra(Constans.id);
+
+        setMarket(data);
+
     }
 
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
-        } else {
-
-            gpss();
-
-        }
-
+        initIntent();
 
     }
 
-    private void gpss() {
 
-        GPSTracker gps = new GPSTracker(c);
+    private void setMarket(DataItem data) {
 
-        if (gps.canGetLocation()) {
+        LatLng latLng = new LatLng(Double.parseDouble(data.getOrderLat()), Double.parseDouble(data.getOrderLon()));
 
-            lat = gps.getLatitude();
-            lon = gps.getLongitude();
-
-            setMarket();
-            name = generateNameLocations(lat, lon);
-
-            searchLocations.setText(name);
-
-
-        }
-
-    }
-
-    private void setMarket() {
-
-        LatLng latLng = new LatLng(lat, lon);
-
-        mMap.addMarker(new MarkerOptions().position(latLng).title(name));
+        mMap.addMarker(new MarkerOptions().position(latLng).title(data.getOrderAlamat()));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 17));
 
     }
 
-    private String generateNameLocations(Double lat, Double lon) {
-
-        String name = "";
-
-        Geocoder geo = new Geocoder(c);
-        try {
-            List<Address> list = geo.getFromLocation(lat, lon, 1);
-            name = list.get(0).getAddressLine(0);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return name;
-    }
 
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        if (requestCode == 1) {
-            gpss();
-        }
-    }
-
-    @OnClick({R.id.searchLocations, R.id.mapBtnlanjut})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.searchLocations:
-
-                searchLocationss();
-                break;
-            case R.id.mapBtnlanjut:
-
-                next();
-                break;
-        }
-    }
-
-    private void next() {
-
-        Intent move = new Intent(MapsActivity.this, DetailRequestActivity.class);
-        move.putExtra(Constans.id, id);
-        move.putExtra(Constans.jenjang, jenjang);
-        move.putExtra(Constans.packet, packet);
-        move.putExtra(Constans.lat, String.valueOf(lat));
-        move.putExtra(Constans.lon, String.valueOf(lon));
-        move.putExtra(Constans.nameLocation, name);
-        startActivity(move);
-
-
-    }
-
-    private void searchLocationss() {
-
-        try {
-            Intent intent =
-                    new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
-                            .build(this);
-            startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
-        } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
-            // TODO: Handle the error.
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
-            if (resultCode == RESULT_OK) {
-                Place place = PlaceAutocomplete.getPlace(this, data);
-                lat = place.getLatLng().latitude;
-                lon = place.getLatLng().longitude;
-
-                setMarket();
-
-                name = Objects.requireNonNull(place.getAddress()).toString();
-                searchLocations.setText(name);
-            }
-        }
-    }
 }
 

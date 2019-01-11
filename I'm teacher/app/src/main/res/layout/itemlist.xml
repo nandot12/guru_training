@@ -28,8 +28,16 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="SMA - MATEMATIKA"
+                android:text="SMAMATEMATIKA"
                 android:id="@+id/itemTitle"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:textColor="@android:color/white" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="SMAMATEMATIKA"
+                android:id="@+id/itemSubtitle"
                 android:gravity="center"
                 android:layout_gravity="center"
                 android:textColor="@android:color/white" />

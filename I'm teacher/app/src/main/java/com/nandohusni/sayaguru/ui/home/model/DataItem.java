@@ -2,48 +2,134 @@ package com.nandohusni.sayaguru.ui.home.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class DataItem{
+import java.io.Serializable;
 
-	@SerializedName("jp_nama")
-	private String jpNama;
+public class DataItem implements Serializable {
 
-	@SerializedName("jp_jenjang")
-	private String jpJenjang;
+	@SerializedName("order_tanggal")
+	private String orderTanggal;
 
-	@SerializedName("jp_id")
-	private String jpId;
+	@SerializedName("order_lat")
+	private String orderLat;
 
-	public void setJpNama(String jpNama){
-		this.jpNama = jpNama;
+	@SerializedName("order_status")
+	private String orderStatus;
+
+	@SerializedName("order_guru")
+	private String orderGuru;
+
+	@SerializedName("order_alamat")
+	private String orderAlamat;
+
+	@SerializedName("order_lon")
+	private String orderLon;
+
+	@SerializedName("order_jp")
+	private String orderJp;
+
+	@SerializedName("order_user")
+	private String orderUser;
+
+	@SerializedName("order_id")
+	private String orderId;
+
+	@SerializedName("booking_ket")
+	private String bookingKet;
+
+	public void setOrderTanggal(String orderTanggal){
+		this.orderTanggal = orderTanggal;
 	}
 
-	public String getJpNama(){
-		return jpNama;
+	public String getOrderTanggal(){
+		return orderTanggal;
 	}
 
-	public void setJpJenjang(String jpJenjang){
-		this.jpJenjang = jpJenjang;
+	public void setOrderLat(String orderLat){
+		this.orderLat = orderLat;
 	}
 
-	public String getJpJenjang(){
-		return jpJenjang;
+	public String getOrderLat(){
+		return orderLat;
 	}
 
-	public void setJpId(String jpId){
-		this.jpId = jpId;
+	public void setOrderStatus(String orderStatus){
+		this.orderStatus = orderStatus;
 	}
 
-	public String getJpId(){
-		return jpId;
+	public String getOrderStatus(){
+		return orderStatus;
+	}
+
+	public void setOrderGuru(String orderGuru){
+		this.orderGuru = orderGuru;
+	}
+
+	public String getOrderGuru(){
+		return orderGuru;
+	}
+
+	public void setOrderAlamat(String orderAlamat){
+		this.orderAlamat = orderAlamat;
+	}
+
+	public String getOrderAlamat(){
+		return orderAlamat;
+	}
+
+	public void setOrderLon(String orderLon){
+		this.orderLon = orderLon;
+	}
+
+	public String getOrderLon(){
+		return orderLon;
+	}
+
+	public void setOrderJp(String orderJp){
+		this.orderJp = orderJp;
+	}
+
+	public String getOrderJp(){
+		return orderJp;
+	}
+
+	public void setOrderUser(String orderUser){
+		this.orderUser = orderUser;
+	}
+
+	public String getOrderUser(){
+		return orderUser;
+	}
+
+	public void setOrderId(String orderId){
+		this.orderId = orderId;
+	}
+
+	public String getOrderId(){
+		return orderId;
+	}
+
+	public void setBookingKet(String bookingKet){
+		this.bookingKet = bookingKet;
+	}
+
+	public String getBookingKet(){
+		return bookingKet;
 	}
 
 	@Override
  	public String toString(){
 		return 
 			"DataItem{" + 
-			"jp_nama = '" + jpNama + '\'' + 
-			",jp_jenjang = '" + jpJenjang + '\'' + 
-			",jp_id = '" + jpId + '\'' + 
+			"order_tanggal = '" + orderTanggal + '\'' + 
+			",order_lat = '" + orderLat + '\'' + 
+			",order_status = '" + orderStatus + '\'' + 
+			",order_guru = '" + orderGuru + '\'' + 
+			",order_alamat = '" + orderAlamat + '\'' + 
+			",order_lon = '" + orderLon + '\'' + 
+			",order_jp = '" + orderJp + '\'' + 
+			",order_user = '" + orderUser + '\'' + 
+			",order_id = '" + orderId + '\'' + 
+			",booking_ket = '" + bookingKet + '\'' + 
 			"}";
 		}
 }
