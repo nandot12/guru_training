@@ -73,4 +73,12 @@ public class SessionManager {
         return pref.getString("id_user", "");
     }
 
+    public void setStatus(String id_user){
+        editor.putString("status", id_user);
+        editor.commit();
+    }
+    public String getIStatus(){
+        return pref.getString("status", "");
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.nandohusni.sayaguru.network;
 
+import com.nandohusni.sayaguru.ui.home.fragment.model.ResultChangeStatus;
 import com.nandohusni.sayaguru.ui.home.model.ResultRequest;
 import com.nandohusni.sayaguru.ui.signIn.model.ResponseLogin;
 import com.nandohusni.sayaguru.ui.signUp.model.ResponsePacket;
@@ -17,6 +18,11 @@ import retrofit2.http.Part;
 
 public interface ApiService {
 
+
+
+    @FormUrlEncoded
+    @POST("changeStatus")
+    Call<ResultChangeStatus> actionChangeStatus(@Field("userID")String userid);
 
     @FormUrlEncoded
     @POST("list_request_guru")

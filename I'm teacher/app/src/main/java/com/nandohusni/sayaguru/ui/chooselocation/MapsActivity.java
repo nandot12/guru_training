@@ -30,6 +30,7 @@ import com.nandohusni.sayaguru.utils.GPSTracker;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 import butterknife.BindView;
@@ -43,6 +44,8 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
 
     private DataItem data;
+
+    Button  buttonName ;
 
 
 
@@ -60,6 +63,10 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback {
 
         }
 
+        buttonName = findViewById(R.id.textName);
+
+
+
 
     }
 
@@ -67,12 +74,35 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback {
 
         data= (DataItem) getIntent().getSerializableExtra(Constans.id);
 
+      String name =   showName(data.getOrderLat(),data.getOrderLon());
+
+        buttonName.setText(name);
+
+
+
+
         setMarket(data);
 
     }
 
+    private String showName(String orderLat, String orderLon) {
 
-    @Override
+
+        String name = "" ;
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        try {
+         List<Address> data  =    geocoder.getFromLocation(Double.parseDouble(orderLat), Double.parseDouble(orderLon), 1);
+
+         name = data.get(0).getAddressLine(0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return name ;
+    }
+
+
+        @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         initIntent();

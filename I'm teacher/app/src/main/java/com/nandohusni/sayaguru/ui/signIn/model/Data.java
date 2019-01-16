@@ -31,6 +31,13 @@ public class Data{
 	@SerializedName("user_level")
 	private String userLevel;
 
+	@SerializedName("user_status")
+	private String userStatus;
+
+	public String getUserStatus() {
+		return userStatus;
+	}
+
 	@SerializedName("user_kelurahan")
 	private Object userKelurahan;
 

@@ -16,7 +16,7 @@ public class NetworkClient {
 
 
     public static Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("http://192.168.100.3/server_guru/index.php/Api/")
+            .baseUrl("http://172.168.10.36/server_guru/index.php/Api/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build();

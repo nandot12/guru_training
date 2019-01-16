@@ -24,6 +24,53 @@ class Api extends CI_Controller {
 
 	}
 
+	function changeStatus(){
+
+		$iduser = $this->input->post('userID');
+		$this->db->where('user_id',$iduser);
+		$q = $this->db->get('tb_user');
+
+		$status = $q->row()->user_status ;
+
+		if($status == 1){
+			$this->db->where('user_id',$iduser);
+			$update['user_status'] = 2 ;
+			$check = $this->db->update('tb_user',$update);
+
+			if($check){
+				$data['status'] = true ;
+				$data['pesan'] = "berhasil" ;
+			}
+			else{
+				$data['status'] = false;
+				$data['pesan'] = "tida berhasil" ;
+
+			}
+		}
+		else{
+
+			$this->db->where('user_id',$iduser);
+			$update['user_status'] = 1 ;
+			$check = $this->db->update('tb_user',$update);
+
+
+			if($check){
+				$data['status'] = true ;
+				$data['pesan'] = "berhasil" ;
+			}
+			else{
+				$data['status'] = false;
+				$data['pesan'] = "tida berhasil" ;
+
+			}
+
+		}
+
+		echo json_encode($data);
+
+
+	}
+
 
 
 	function insert_tracking(){
@@ -91,6 +138,9 @@ function list_request_guru(){
 	$id = $this->input->post('id');
 
 	$this->db->where('order_guru',$id);
+
+	$this->db->join('tb_user','tb_booking.order_guru = tb_user.user_id');
+	$this->db->where('tb_user.user_status',2);
 
 	$result = $this->db->get('tb_booking');
 

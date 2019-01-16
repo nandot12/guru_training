@@ -44,6 +44,7 @@ public class PaketAdapter extends RecyclerView.Adapter<PaketAdapter.MyHolder> {
 
                 Intent move = new Intent(c, MapsActivity.class);
                 move.putExtra(Constans.id,data.get(i));
+
                 c.startActivity(move);
 
             }

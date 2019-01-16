@@ -100,7 +100,9 @@ public class LoginActivity extends BaseActivity {
                         sesi.setNama(data.getUserNama());
                         sesi.setIduser(data.getUserId());
                         sesi.setPhone(data.getUserTelpon());
+                        sesi.setStatus(data.getUserStatus());
                         sesi.cerateLoginSession("2");
+
 
 
 
